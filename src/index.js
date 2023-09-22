@@ -3,11 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit'
+import productSlice from './Features/productSlice';
+import cartSlice, { getTotals } from './Features/cartSlice';
+const store= configureStore({
+  reducer:{
+   products:productSlice,
+   cart:cartSlice,
+  }
+})
+
+store.dispatch(getTotals());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>
 );
 
